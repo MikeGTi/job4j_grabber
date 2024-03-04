@@ -2,18 +2,24 @@ package job4j.quartz;
 
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
+
+import java.io.InputStream;
+import java.util.Properties;
+
 import static org.quartz.JobBuilder.*;
 import static org.quartz.TriggerBuilder.*;
 import static org.quartz.SimpleScheduleBuilder.*;
 
 public class AlertRabbit {
+
     public static void main(String[] args) {
         try {
+            Properties config = init();
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
             JobDetail job = newJob(Rabbit.class).build();
             SimpleScheduleBuilder times = simpleSchedule()
-                    .withIntervalInSeconds(10)
+                    .withIntervalInSeconds(Integer.parseInt(config.getProperty("rabbit.interval")))
                     .repeatForever();
             Trigger trigger = newTrigger()
                     .startNow()
@@ -22,6 +28,17 @@ public class AlertRabbit {
             scheduler.scheduleJob(job, trigger);
         } catch (SchedulerException se) {
             se.printStackTrace();
+        }
+    }
+
+    private static Properties init() {
+        try (InputStream input = AlertRabbit.class.getClassLoader()
+                .getResourceAsStream("./rabbit.properties")) {
+            Properties config = new Properties();
+            config.load(input);
+            return config;
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
         }
     }
 
