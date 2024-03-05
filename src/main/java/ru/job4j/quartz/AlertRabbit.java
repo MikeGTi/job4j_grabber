@@ -33,7 +33,7 @@ public class AlertRabbit {
 
     private static Properties init() {
         try (InputStream input = AlertRabbit.class.getClassLoader()
-                .getResourceAsStream("./rabbit.properties")) {
+                .getResourceAsStream("rabbit.properties")) {
             Properties config = new Properties();
             config.load(input);
             return config;
