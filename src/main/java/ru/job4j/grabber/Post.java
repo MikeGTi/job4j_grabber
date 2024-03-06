@@ -74,8 +74,12 @@ public class Post {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Post post)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Post post)) {
+            return false;
+        }
         return getId() == post.getId() && Objects.equals(getLink(), post.getLink());
     }
 
