@@ -53,7 +53,7 @@ public class HabrCareerParse implements Parse {
         Elements rows = document.select(".vacancy-card__inner");
         for (Element row : rows) {
             Post post = retrieveVacancy(row, id);
-            post.setDescription(retrieveDescription(post.getLink()));
+            post.setText(retrieveDescription(post.getLink()));
             rsl.add(post);
             id++;
         }

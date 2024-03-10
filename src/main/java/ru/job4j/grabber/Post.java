@@ -5,30 +5,30 @@ import java.util.Objects;
 
 public class Post {
     private int id;
-    private String title;
+    private String name;
     private String link;
-    private String description;
+    private String text;
     private LocalDateTime created;
 
-    public Post(int id, String title, String link, String description) {
+    public Post(int id, String name, String link, String text) {
         this.id = id;
-        this.title = title;
+        this.name = name;
         this.link = link;
-        this.description = description;
+        this.text = text;
     }
 
-    public Post(String title, String link, String description, LocalDateTime created) {
-        this.title = title;
+    public Post(String name, String link, String text, LocalDateTime created) {
+        this.name = name;
         this.link = link;
-        this.description = description;
+        this.text = text;
         this.created = created;
     }
 
-    public Post(int id, String title, String link, String description, LocalDateTime created) {
+    public Post(int id, String name, String link, String text, LocalDateTime created) {
         this.id = id;
-        this.title = title;
+        this.name = name;
         this.link = link;
-        this.description = description;
+        this.text = text;
         this.created = created;
     }
 
@@ -40,12 +40,12 @@ public class Post {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLink() {
@@ -56,12 +56,12 @@ public class Post {
         this.link = link;
     }
 
-    public String getDescription() {
-        return description;
+    public String getText() {
+        return text;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public LocalDateTime getCreated() {
@@ -92,9 +92,9 @@ public class Post {
     public String toString() {
         return "Post{"
                 + "id=" + id
-                + ", title='" + title + '\''
+                + ", name='" + name + '\''
                 + ", link='" + link + '\''
-                + ", description='" + description + '\''
+                + ", text='" + text + '\''
                 + ", created=" + created
                 + '}';
     }
