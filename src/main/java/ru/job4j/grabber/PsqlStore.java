@@ -1,6 +1,5 @@
 package ru.job4j.grabber;
 
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +29,11 @@ public class PsqlStore implements Store {
     public void save(Post post) {
         try (PreparedStatement statement =
                 connection.prepareStatement("INSERT INTO post(name, text, link, created) VALUES (?, ?, ?, ?) "
-                                              + "ON CONFLICT (link) DO UPDATE SET link = ?")) {
+                                              + "ON CONFLICT (link) DO NOTHING")) {
                 statement.setString(1, post.getName());
                 statement.setString(2, post.getText());
                 statement.setString(3, post.getLink());
                 statement.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
-                statement.setString(5, post.getLink());
                 statement.execute();
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,19 +85,5 @@ public class PsqlStore implements Store {
                         resultSet.getString("link"),
                         (resultSet.getTimestamp("created")).toLocalDateTime()
                 );
-    }
-
-    public static void main(String[] args) {
-        try (InputStream input = PsqlStore.class.getClassLoader()
-                .getResourceAsStream("db/liquibase.properties")) {
-            Properties config = new Properties();
-            config.load(input);
-            try (PsqlStore psqlStore = new PsqlStore(config)) {
-                List<Post> posts = psqlStore.getAll();
-                posts.forEach(System.out::println);
-            }
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
-        }
     }
 }

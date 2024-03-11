@@ -1,19 +1,14 @@
 package ru.job4j.quartz;
 
 import org.quartz.*;
-import org.quartz.impl.StdSchedulerFactory;
 
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
 
-import static org.quartz.JobBuilder.*;
-import static org.quartz.TriggerBuilder.*;
-import static org.quartz.SimpleScheduleBuilder.*;
-
 public class AlertRabbit {
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Properties config = getRabbitProperties();
         try (Connection connection = initDBconnection()) {
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
@@ -24,7 +19,7 @@ public class AlertRabbit {
                     .usingJobData(data)
                     .build();
             SimpleScheduleBuilder times = simpleSchedule()
-                    .withIntervalInSeconds(Integer.parseInt(config.getProperty("rabbit.interval_s")))
+                    .withIntervalInSeconds(Integer.parseInt(config.getProperty("rabbit.startup.interval_s")))
                     .repeatForever();
             Trigger trigger = newTrigger()
                     .startNow()
@@ -36,7 +31,7 @@ public class AlertRabbit {
         } catch (Exception se) {
             se.printStackTrace();
         }
-    }
+    }*/
 
     private static Properties getRabbitProperties() {
         try (InputStream input = AlertRabbit.class.getClassLoader()
